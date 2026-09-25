@@ -1,1346 +1,1448 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Jinusha J J | AWS Cloud Engineer</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #050507;
-            --bg-soft: #0b0910;
-            --card: rgba(18, 14, 25, 0.72);
-            --purple: #9b5cff;
-            --purple-light: #c49aff;
-            --purple-dark: #5e2ba8;
-            --text: #f7f3ff;
-            --muted: #aaa1b7;
-            --border: rgba(168, 101, 255, 0.18);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background:
-                radial-gradient(circle at 80% 15%, rgba(125, 55, 220, 0.15), transparent 28%),
-                radial-gradient(circle at 15% 75%, rgba(100, 35, 180, 0.10), transparent 30%),
-                var(--bg);
-            color: var(--text);
-            font-family: "Inter", sans-serif;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            background-image:
-                linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
-            background-size: 55px 55px;
-            mask-image: linear-gradient(to bottom, black, transparent 90%);
-            z-index: -2;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .container {
-            width: min(1150px, 90%);
-            margin: auto;
-        }
-
-        /* NAVBAR */
-
-        header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(18px);
-            background: rgba(5, 5, 7, .72);
-            border-bottom: 1px solid rgba(255,255,255,.05);
-        }
-
-        nav {
-            height: 78px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-family: "Space Grotesk", sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: var(--purple);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #c4bdcb;
-            font-size: 14px;
-            transition: .3s;
-        }
-
-        .nav-links a:hover {
-            color: white;
-            text-shadow: 0 0 18px var(--purple);
-        }
-
-        /* HERO */
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-            position: relative;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1.05fr .95fr;
-            gap: 70px;
-            align-items: center;
-        }
-
-        .small-title {
-            color: var(--purple-light);
-            font-size: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-family: "Space Grotesk", sans-serif;
-            font-size: clamp(55px, 8vw, 94px);
-            line-height: .92;
-            letter-spacing: -5px;
-            margin-bottom: 25px;
-        }
-
-        .hero h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--purple-light);
-            text-shadow: 0 0 30px rgba(155,92,255,.15);
-        }
-
-        .hero-role {
-            font-size: 21px;
-            font-weight: 500;
-            margin-bottom: 18px;
-        }
-
-        .hero-role span {
-            color: var(--purple-light);
-        }
-
-        .hero-description {
-            color: var(--muted);
-            line-height: 1.8;
-            max-width: 590px;
-            font-size: 15px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 14px;
-            margin-top: 32px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 13px 22px;
-            border-radius: 9px;
-            border: 1px solid var(--border);
-            transition: .35s;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .btn-primary {
-            background: var(--purple);
-            color: #fff;
-            box-shadow: 0 0 25px rgba(155,92,255,.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow:
-                0 0 20px rgba(155,92,255,.45),
-                0 0 55px rgba(155,92,255,.22);
-        }
-
-        .btn-outline {
-            background: rgba(255,255,255,.025);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--purple);
-            color: var(--purple-light);
-            box-shadow: 0 0 22px rgba(155,92,255,.16);
-            transform: translateY(-3px);
-        }
-
-        /* CLOUD VISUAL */
-
-        .cloud-scene {
-            height: 480px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .orb {
-            position: absolute;
-            width: 340px;
-            height: 340px;
-            border-radius: 50%;
-            background: radial-gradient(
-                circle,
-                rgba(155,92,255,.17),
-                rgba(155,92,255,.05) 45%,
-                transparent 70%
-            );
-            filter: blur(2px);
-            animation: breathe 5s infinite ease-in-out;
-        }
-
-        .cloud {
-            width: 190px;
-            height: 75px;
-            border-radius: 70px;
-            background: linear-gradient(145deg, #21172d, #0e0b13);
-            border: 1px solid rgba(191,146,255,.55);
-            position: relative;
-            box-shadow:
-                0 0 30px rgba(155,92,255,.25),
-                inset 0 0 25px rgba(155,92,255,.08);
-            z-index: 4;
-        }
-
-        .cloud::before,
-        .cloud::after {
-            content: "";
-            position: absolute;
-            border-radius: 50%;
-            background: #17111f;
-            border: 1px solid rgba(191,146,255,.5);
-        }
-
-        .cloud::before {
-            width: 85px;
-            height: 85px;
-            left: 30px;
-            bottom: 25px;
-        }
-
-        .cloud::after {
-            width: 65px;
-            height: 65px;
-            right: 28px;
-            bottom: 20px;
-        }
-
-        .cloud-label {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            top: 28px;
-            z-index: 5;
-            font-weight: 700;
-            letter-spacing: 2px;
-            font-size: 13px;
-        }
-
-        .tech {
-            position: absolute;
-            padding: 10px 15px;
-            border: 1px solid rgba(155,92,255,.3);
-            background: rgba(15,10,21,.8);
-            backdrop-filter: blur(12px);
-            border-radius: 9px;
-            color: #d7c4f4;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 0 20px rgba(155,92,255,.08);
-            transition: .35s;
-        }
-
-        .tech:hover {
-            color: white;
-            border-color: var(--purple);
-            box-shadow: 0 0 25px rgba(155,92,255,.3);
-            transform: scale(1.08);
-        }
-
-        .t1 { top: 50px; left: 5%; }
-        .t2 { top: 145px; right: 0; }
-        .t3 { bottom: 110px; left: 0; }
-        .t4 { bottom: 35px; right: 10%; }
-        .t5 { top: 250px; left: 8%; }
-        .t6 { top: 335px; right: 2%; }
-
-        .connection {
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            border: 1px solid rgba(155,92,255,.13);
-            border-radius: 50%;
-            animation: rotate 18s linear infinite;
-        }
-
-        .connection::before,
-        .connection::after {
-            content: "";
-            position: absolute;
-            inset: 30px;
-            border: 1px dashed rgba(155,92,255,.16);
-            border-radius: 50%;
-        }
-
-        .connection::after {
-            inset: 60px;
-        }
-
-        @keyframes rotate {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes breathe {
-            0%,100% { transform: scale(1); opacity: .8; }
-            50% { transform: scale(1.08); opacity: 1; }
-        }
-
-        /* SECTIONS */
-
-        section {
-            padding: 110px 0;
-        }
-
-        .section-heading {
-            margin-bottom: 50px;
-        }
-
-        .section-heading small {
-            color: var(--purple-light);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-
-        .section-heading h2 {
-            font-family: "Space Grotesk", sans-serif;
-            font-size: clamp(36px, 5vw, 52px);
-            margin-top: 10px;
-            letter-spacing: -2px;
-        }
-
-        .section-heading p {
-            color: var(--muted);
-            margin-top: 12px;
-            max-width: 650px;
-            line-height: 1.7;
-        }
-
-        /* ABOUT */
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: .8fr 1.2fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        .about-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 35px;
-            transition: .4s;
-        }
-
-        .about-card:hover {
-            border-color: rgba(155,92,255,.5);
-            box-shadow: 0 0 40px rgba(155,92,255,.09);
-            transform: translateY(-5px);
-        }
-
-        .about-card h3 {
-            font-family: "Space Grotesk";
-            margin-bottom: 15px;
-            font-size: 25px;
-        }
-
-        .about-card p {
-            color: var(--muted);
-            line-height: 1.85;
-            font-size: 15px;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            gap: 15px;
-        }
-
-        .stat {
-            padding: 25px;
-            background: rgba(255,255,255,.025);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            transition: .3s;
-        }
-
-        .stat:hover {
-            border-color: var(--purple);
-            box-shadow: 0 0 25px rgba(155,92,255,.12);
-        }
-
-        .stat strong {
-            font-size: 25px;
-            color: var(--purple-light);
-            display: block;
-            margin-bottom: 7px;
-        }
-
-        .stat span {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        /* EDUCATION */
-
-        .timeline {
-            border-left: 1px solid rgba(155,92,255,.3);
-            padding-left: 35px;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid var(--border);
-            background: var(--card);
-            border-radius: 15px;
-            transition: .35s;
-        }
-
-        .timeline-item::before {
-            content: "";
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--purple);
-            left: -41px;
-            top: 34px;
-            box-shadow: 0 0 16px var(--purple);
-        }
-
-        .timeline-item:hover {
-            transform: translateX(6px);
-            border-color: var(--purple);
-            box-shadow: 0 0 30px rgba(155,92,255,.1);
-        }
-
-        .timeline-item span {
-            color: var(--purple-light);
-            font-size: 12px;
-        }
-
-        .timeline-item h3 {
-            margin: 8px 0;
-            font-size: 21px;
-        }
-
-        .timeline-item p {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        /* SKILLS */
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-
-        .skill {
-            padding: 22px;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: rgba(255,255,255,.025);
-            text-align: center;
-            transition: .35s;
-        }
-
-        .skill:hover {
-            transform: translateY(-6px);
-            border-color: var(--purple);
-            background: rgba(155,92,255,.06);
-            box-shadow: 0 0 30px rgba(155,92,255,.15);
-        }
-
-        .skill .icon {
-            font-size: 27px;
-            margin-bottom: 10px;
-        }
-
-        .skill p {
-            font-size: 13px;
-            color: #d9d0e2;
-        }
-
-        /* PROJECTS */
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 22px;
-        }
-
-        .project {
-            padding: 30px;
-            background: linear-gradient(
-                145deg,
-                rgba(26,19,35,.9),
-                rgba(10,8,13,.9)
-            );
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            position: relative;
-            overflow: hidden;
-            transition: .4s;
-        }
-
-        .project::before {
-            content: "";
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            background: var(--purple);
-            opacity: .07;
-            filter: blur(45px);
-            right: -30px;
-            top: -30px;
-            transition: .4s;
-        }
-
-        .project:hover {
-            transform: translateY(-8px);
-            border-color: rgba(155,92,255,.65);
-            box-shadow: 0 15px 45px rgba(155,92,255,.12);
-        }
-
-        .project:hover::before {
-            opacity: .18;
-        }
-
-        .project-number {
-            color: var(--purple-light);
-            font-size: 12px;
-            letter-spacing: 2px;
-        }
-
-        .project h3 {
-            font-family: "Space Grotesk";
-            font-size: 23px;
-            margin: 15px 0;
-        }
-
-        .project p {
-            color: var(--muted);
-            line-height: 1.75;
-            font-size: 14px;
-        }
-
-        .tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 22px;
-        }
-
-        .tag {
-            padding: 6px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(155,92,255,.25);
-            color: #cbb6e8;
-            font-size: 11px;
-        }
-
-        /* LEARNING */
-
-        .learning-box {
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            background:
-                radial-gradient(circle at 90% 10%, rgba(155,92,255,.13), transparent 30%),
-                var(--card);
-        }
-
-        .learning-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 25px;
-        }
-
-        .learning-item {
-            padding: 12px 17px;
-            border-radius: 30px;
-            background: rgba(155,92,255,.07);
-            border: 1px solid rgba(155,92,255,.2);
-            color: #d9c8ec;
-            font-size: 13px;
-            transition: .3s;
-        }
-
-        .learning-item:hover {
-            border-color: var(--purple);
-            color: white;
-            box-shadow: 0 0 20px rgba(155,92,255,.15);
-        }
-
-        /* CONTACT */
-
-        .contact-box {
-            text-align: center;
-            padding: 65px 25px;
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            background:
-                radial-gradient(circle, rgba(155,92,255,.09), transparent 60%),
-                var(--card);
-        }
-
-        .contact-box h2 {
-            font-family: "Space Grotesk";
-            font-size: clamp(35px, 6vw, 60px);
-            margin-bottom: 15px;
-        }
-
-        .contact-box p {
-            color: var(--muted);
-            margin-bottom: 30px;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        /* FOOTER */
-
-        footer {
-            padding: 30px 0;
-            border-top: 1px solid rgba(255,255,255,.05);
-            text-align: center;
-            color: #77717e;
-            font-size: 13px;
-        }
-
-        footer span {
-            color: var(--purple-light);
-        }
-
-        /* SCROLL REVEAL */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: .8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 850px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero-grid,
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                padding-top: 130px;
-            }
-
-            .hero h1 {
-                font-size: 60px;
-            }
-
-            .cloud-scene {
-                height: 390px;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(2,1fr);
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            .hero h1 {
-                font-size: 48px;
-                letter-spacing: -3px;
-            }
-
-            .hero-description {
-                font-size: 14px;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .tech {
-                font-size: 10px;
-                padding: 8px 10px;
-            }
-
-            .t1 { left: 0; }
-            .t2 { right: 0; }
-            .t5 { left: 0; }
-
-            section {
-                padding: 80px 0;
-            }
-
-            .about-card,
-            .learning-box {
-                padding: 25px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jinusha J J | AWS Cloud Engineer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --black:#050506;
+    --black2:#09070d;
+    --violet:#9b5cff;
+    --violet2:#c49aff;
+    --text:#f4effb;
+    --muted:#aaa3b3;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at 75% 18%,rgba(130,55,230,.13),transparent 28%),
+        radial-gradient(circle at 15% 80%,rgba(100,35,180,.08),transparent 28%),
+        var(--black);
+    color:var(--text);
+    font-family:"Inter",sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image:
+        linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:linear-gradient(to bottom,black,transparent 90%);
+    z-index:-2;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.container{
+    width:min(1160px,90%);
+    margin:auto;
+}
+
+
+/* ================= NAVBAR ================= */
+
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(5,5,6,.72);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.045);
+}
+
+nav{
+    height:75px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-family:"Space Grotesk";
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:-.5px;
+    color:#f4effb;
+}
+
+.nav-links{
+    display:flex;
+    gap:30px;
+    list-style:none;
+}
+
+.nav-links a{
+    color:#aaa3b3;
+    font-size:13px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+    text-shadow:0 0 18px var(--violet);
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:80px;
+    position:relative;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1.05fr;
+    gap:40px;
+    align-items:center;
+}
+
+.hero-content{
+    z-index:5;
+}
+
+.small-title{
+    color:var(--violet2);
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-family:"Space Grotesk";
+    font-size:clamp(48px,6vw,72px);
+    font-weight:600;
+    letter-spacing:-3px;
+    line-height:1;
+    margin-bottom:22px;
+    color:#f5f0fa;
+}
+
+.hero-role{
+    font-size:19px;
+    font-weight:500;
+    margin-bottom:18px;
+}
+
+.hero-role span{
+    color:var(--violet2);
+}
+
+.hero-description{
+    max-width:560px;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.85;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:13px;
+    margin-top:30px;
+}
+
+.btn{
+    padding:12px 20px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+    transition:.35s;
+}
+
+.btn-primary{
+    background:var(--violet);
+    box-shadow:0 0 22px rgba(155,92,255,.2);
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:
+        0 0 22px rgba(155,92,255,.55),
+        0 0 50px rgba(155,92,255,.18);
+}
+
+.btn-outline{
+    border:1px solid rgba(155,92,255,.35);
+    color:#d8c7eb;
+}
+
+.btn-outline:hover{
+    border-color:var(--violet);
+    box-shadow:0 0 22px rgba(155,92,255,.2);
+    transform:translateY(-3px);
+}
+
+
+/* ================= HERO GIRL AREA ================= */
+
+.hero-visual{
+    height:530px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+/* soft glow */
+
+.hero-glow{
+    position:absolute;
+    width:400px;
+    height:400px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(155,92,255,.20),
+        rgba(155,92,255,.07) 40%,
+        transparent 72%
+    );
+    filter:blur(8px);
+    animation:breathing 5s infinite ease-in-out;
+}
+
+
+/* orbital rings */
+
+.ring{
+    position:absolute;
+    width:390px;
+    height:390px;
+    border:1px solid rgba(155,92,255,.10);
+    border-radius:50%;
+    animation:rotate 18s linear infinite;
+}
+
+.ring.two{
+    width:300px;
+    height:300px;
+    border-style:dashed;
+    animation-duration:24s;
+    animation-direction:reverse;
+}
+
+
+/* ================= CSS GIRL ================= */
+
+.girl{
+    position:relative;
+    width:250px;
+    height:390px;
+    z-index:5;
+}
+
+
+/* hair */
+
+.hair{
+    position:absolute;
+    width:105px;
+    height:125px;
+    left:73px;
+    top:42px;
+    border-radius:55px 55px 45px 45px;
+    background:linear-gradient(
+        145deg,
+        #17121d,
+        #09070c
+    );
+    box-shadow:
+        -12px 10px 0 #120d18,
+        10px 12px 0 #120d18,
+        0 0 28px rgba(155,92,255,.12);
+}
+
+
+/* face */
+
+.face{
+    position:absolute;
+    width:72px;
+    height:88px;
+    left:89px;
+    top:62px;
+    border-radius:42% 42% 45% 45%;
+    background:linear-gradient(
+        145deg,
+        #d8a889,
+        #b87962
+    );
+    z-index:2;
+}
+
+
+/* hair front */
+
+.hair-front{
+    position:absolute;
+    width:85px;
+    height:53px;
+    left:82px;
+    top:43px;
+    border-radius:55px 55px 15px 20px;
+    background:#120d18;
+    z-index:3;
+}
+
+
+/* hair side */
+
+.hair-side{
+    position:absolute;
+    width:32px;
+    height:125px;
+    left:69px;
+    top:70px;
+    border-radius:30px;
+    background:#100b15;
+    z-index:3;
+}
+
+
+/* neck */
+
+.neck{
+    position:absolute;
+    width:25px;
+    height:35px;
+    left:113px;
+    top:135px;
+    background:#bd8068;
+    z-index:1;
+}
+
+
+/* body / shirt */
+
+.body{
+    position:absolute;
+    width:150px;
+    height:170px;
+    left:50px;
+    top:158px;
+    border-radius:65px 65px 20px 20px;
+    background:linear-gradient(
+        145deg,
+        #6f3bb0,
+        #25113d
+    );
+    box-shadow:
+        0 0 35px rgba(155,92,255,.16);
+}
+
+
+/* arm */
+
+.arm{
+    position:absolute;
+    width:34px;
+    height:120px;
+    background:#b97e68;
+    border-radius:30px;
+    z-index:4;
+}
+
+.arm.left{
+    left:49px;
+    top:190px;
+    transform:rotate(28deg);
+}
+
+.arm.right{
+    right:48px;
+    top:190px;
+    transform:rotate(-28deg);
+}
+
+
+/* laptop */
+
+.laptop{
+    position:absolute;
+    width:210px;
+    height:125px;
+    left:20px;
+    top:245px;
+    z-index:7;
+    transform:perspective(500px) rotateX(8deg);
+}
+
+.screen{
+    width:170px;
+    height:100px;
+    margin:auto;
+    border:5px solid #25202b;
+    border-bottom:7px solid #30293a;
+    border-radius:7px 7px 3px 3px;
+    background:
+        linear-gradient(
+            135deg,
+            #130d1d,
+            #241038
+        );
+    box-shadow:
+        0 0 22px rgba(155,92,255,.22);
+    position:relative;
+    overflow:hidden;
+}
+
+.screen::before{
+    content:"";
+    position:absolute;
+    inset:12px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent 20%,
+            rgba(155,92,255,.22) 20%,
+            rgba(155,92,255,.22) 21%,
+            transparent 21%
+        );
+    opacity:.8;
+}
+
+.screen-code{
+    position:absolute;
+    top:20px;
+    left:18px;
+    font-family:monospace;
+    color:#b990ef;
+    font-size:8px;
+    line-height:1.8;
+}
+
+.base{
+    width:205px;
+    height:10px;
+    margin:auto;
+    background:#28222f;
+    border-radius:0 0 10px 10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.6);
+}
+
+
+/* ================= FLOATING TOOLS ================= */
+
+.tool{
+    position:absolute;
+    padding:9px 14px;
+    border:1px solid rgba(155,92,255,.28);
+    color:#d8c7eb;
+    background:rgba(8,6,11,.38);
+    border-radius:30px;
+    font-size:11px;
+    backdrop-filter:blur(5px);
+    transition:.35s;
+    z-index:10;
+}
+
+.tool::before{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    border-radius:inherit;
+    border:1px solid transparent;
+    transition:.35s;
+}
+
+.tool:hover{
+    color:white;
+    border-color:var(--violet);
+    box-shadow:
+        0 0 20px rgba(155,92,255,.35),
+        0 0 45px rgba(155,92,255,.10);
+    transform:translateY(-5px) scale(1.05);
+}
+
+.tool:hover::before{
+    border-color:rgba(155,92,255,.15);
+}
+
+.aws{
+    top:55px;
+    left:20px;
+}
+
+.ec2{
+    top:120px;
+    right:12px;
+}
+
+.s3{
+    top:225px;
+    left:0;
+}
+
+.git{
+    bottom:105px;
+    left:25px;
+}
+
+.linux{
+    bottom:45px;
+    right:25px;
+}
+
+.vpc{
+    top:310px;
+    right:0;
+}
+
+.devops{
+    top:20px;
+    right:80px;
+}
+
+.cloud{
+    bottom:10px;
+    left:95px;
+}
+
+
+/* tiny connection dots */
+
+.dot{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:var(--violet2);
+    box-shadow:0 0 12px var(--violet);
+}
+
+.d1{top:95px;left:100px;}
+.d2{top:170px;right:70px;}
+.d3{bottom:150px;left:65px;}
+.d4{bottom:80px;right:100px;}
+
+
+/* ================= SECTIONS ================= */
+
+section{
+    padding:110px 0;
+}
+
+.section-heading{
+    margin-bottom:48px;
+}
+
+.section-heading small{
+    color:var(--violet2);
+    letter-spacing:3px;
+    font-size:11px;
+    text-transform:uppercase;
+}
+
+.section-heading h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(34px,5vw,50px);
+    letter-spacing:-2px;
+    margin-top:10px;
+}
+
+.section-heading p{
+    color:var(--muted);
+    line-height:1.8;
+    max-width:650px;
+    margin-top:12px;
+}
+
+
+/* ================= ABOUT ================= */
+
+.about-content{
+    max-width:900px;
+}
+
+.about-content p{
+    color:var(--muted);
+    font-size:16px;
+    line-height:2;
+}
+
+.about-line{
+    width:60px;
+    height:2px;
+    background:var(--violet);
+    margin:25px 0;
+    box-shadow:0 0 15px var(--violet);
+}
+
+
+/* ================= EDUCATION ================= */
+
+.timeline{
+    border-left:1px solid rgba(155,92,255,.3);
+    padding-left:35px;
+}
+
+.timeline-item{
+    position:relative;
+    padding-bottom:40px;
+}
+
+.timeline-item::before{
+    content:"";
+    position:absolute;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--violet);
+    left:-40px;
+    top:5px;
+    box-shadow:0 0 15px var(--violet);
+}
+
+.timeline-item span{
+    color:var(--violet2);
+    font-size:12px;
+}
+
+.timeline-item h3{
+    font-size:21px;
+    margin:9px 0;
+}
+
+.timeline-item p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+
+/* ================= SKILLS ================= */
+
+.skills-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.skill{
+    padding:12px 18px;
+    border:1px solid rgba(155,92,255,.18);
+    border-radius:30px;
+    color:#cfc2dc;
+    font-size:13px;
+    transition:.35s;
+}
+
+.skill:hover{
+    color:white;
+    border-color:var(--violet);
+    transform:translateY(-4px);
+    box-shadow:0 0 25px rgba(155,92,255,.17);
+}
+
+
+/* ================= PROJECTS ================= */
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:55px 70px;
+}
+
+.project{
+    position:relative;
+    padding-left:20px;
+    border-left:1px solid rgba(155,92,255,.18);
+    transition:.35s;
+}
+
+.project:hover{
+    border-left-color:var(--violet);
+    transform:translateX(6px);
+}
+
+.project-number{
+    color:var(--violet2);
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.project h3{
+    font-family:"Space Grotesk";
+    font-size:22px;
+    margin:12px 0;
+}
+
+.project p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.8;
+}
+
+.tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+
+.tag{
+    color:#bba9ce;
+    font-size:10px;
+}
+
+
+/* ================= LEARNING ================= */
+
+.learning-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.learning-item{
+    color:#d2c2df;
+    padding:12px 18px;
+    border-bottom:1px solid rgba(155,92,255,.25);
+    transition:.3s;
+}
+
+.learning-item:hover{
+    color:white;
+    border-color:var(--violet);
+    text-shadow:0 0 15px rgba(155,92,255,.7);
+}
+
+
+/* ================= CAREER ================= */
+
+.career-text{
+    max-width:850px;
+    color:var(--muted);
+    font-size:16px;
+    line-height:2;
+}
+
+
+/* ================= CONTACT ================= */
+
+.contact{
+    text-align:center;
+}
+
+.contact h2{
+    font-family:"Space Grotesk";
+    font-size:clamp(38px,6vw,60px);
+    letter-spacing:-2px;
+}
+
+.contact p{
+    color:var(--muted);
+    margin:15px auto 30px;
+    max-width:550px;
+    line-height:1.8;
+}
+
+.contact-links{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:30px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.04);
+    color:#77717e;
+    font-size:12px;
+}
+
+
+/* ================= ANIMATION ================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(25px);
+    transition:.8s ease;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@keyframes rotate{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes breathing{
+    0%,100%{
+        transform:scale(1);
+        opacity:.7;
+    }
+    50%{
+        transform:scale(1.08);
+        opacity:1;
+    }
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:850px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .hero-visual{
+        height:470px;
+    }
+
+    .projects{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    .hero-visual{
+        transform:scale(.82);
+        margin-top:-30px;
+        margin-bottom:-40px;
+    }
+
+    section{
+        padding:80px 0;
+    }
+
+    .tool{
+        font-size:9px;
+        padding:7px 10px;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-<header>
-    <div class="container">
-        <nav>
-            <a href="#home" class="logo">J<span>J</span>.</a>
 
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
+<!-- NAVIGATION -->
+
+<header>
+
+<div class="container">
+
+<nav>
+
+<a href="#home" class="logo">
+    Jinusha J J
+</a>
+
+<ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+</ul>
+
+</nav>
+
+</div>
+
 </header>
 
 
-<!-- HOME -->
+
+<!-- ================= HOME ================= -->
 
 <section class="hero" id="home">
 
-    <div class="container hero-grid">
-
-        <div class="hero-content reveal">
-
-            <div class="small-title">Hello, I'm</div>
-
-            <h1>Jinusha<br><span>J J.</span></h1>
-
-            <div class="hero-role">
-                AWS <span>Cloud Engineer</span> · Junior DevOps
-            </div>
-
-            <p class="hero-description">
-                Computer Science graduate passionate about cloud infrastructure,
-                AWS technologies and DevOps practices. I enjoy building,
-                deploying and managing reliable cloud-based solutions.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">
-                    Explore My Work
-                </a>
-
-                <a href="#contact" class="btn btn-outline">
-                    Let's Connect
-                </a>
-            </div>
-
-        </div>
+<div class="container hero-grid">
 
 
-        <!-- AESTHETIC CLOUD ENGINEER VISUAL -->
+<div class="hero-content reveal">
 
-        <div class="cloud-scene reveal">
+<div class="small-title">
+    Hello, I'm
+</div>
 
-            <div class="orb"></div>
-            <div class="connection"></div>
+<h1>
+    Jinusha J J
+</h1>
 
-            <div class="cloud">
-                <div class="cloud-label">CLOUD</div>
-            </div>
+<div class="hero-role">
+    AWS <span>Cloud Engineer</span> · Junior DevOps
+</div>
 
-            <div class="tech t1">☁ AWS</div>
-            <div class="tech t2">EC2</div>
-            <div class="tech t3">Git</div>
-            <div class="tech t4">Linux</div>
-            <div class="tech t5">VPC</div>
-            <div class="tech t6">DevOps</div>
+<p class="hero-description">
 
-        </div>
+Computer Science graduate passionate about cloud infrastructure,
+AWS technologies and DevOps practices. I enjoy building,
+deploying and managing reliable cloud-based solutions.
 
-    </div>
+</p>
+
+
+<div class="hero-buttons">
+
+<a href="#projects" class="btn btn-primary">
+    Explore My Work
+</a>
+
+<a href="#contact" class="btn btn-outline">
+    Let's Connect
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= GIRL + TOOLS ================= -->
+
+<div class="hero-visual reveal">
+
+<div class="hero-glow"></div>
+
+<div class="ring"></div>
+<div class="ring two"></div>
+
+
+<!-- floating tools -->
+
+<div class="tool aws">☁ AWS</div>
+<div class="tool ec2">EC2</div>
+<div class="tool s3">S3</div>
+<div class="tool git">⌘ Git</div>
+<div class="tool linux">Linux</div>
+<div class="tool vpc">VPC</div>
+<div class="tool devops">⚙ DevOps</div>
+<div class="tool cloud">Cloud</div>
+
+
+<div class="dot d1"></div>
+<div class="dot d2"></div>
+<div class="dot d3"></div>
+<div class="dot d4"></div>
+
+
+<!-- CSS GIRL -->
+
+<div class="girl">
+
+<div class="hair"></div>
+<div class="face"></div>
+<div class="hair-front"></div>
+<div class="hair-side"></div>
+
+<div class="neck"></div>
+<div class="body"></div>
+
+<div class="arm left"></div>
+<div class="arm right"></div>
+
+
+<!-- laptop -->
+
+<div class="laptop">
+
+<div class="screen">
+
+<div class="screen-code">
+$ aws ec2 describe<br>
+$ git push origin main<br>
+$ cloud deploy<br>
+$ systemctl status<br>
+$ aws s3 ls
+</div>
+
+</div>
+
+<div class="base"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- ABOUT -->
+
+<!-- ================= ABOUT ================= -->
 
 <section id="about">
 
-    <div class="container">
+<div class="container">
 
-        <div class="section-heading reveal">
-            <small>01 / About Me</small>
-            <h2>Building my path in the cloud.</h2>
-        </div>
+<div class="section-heading reveal">
 
-        <div class="about-grid">
+<small>01 / About Me</small>
 
-            <div class="stats reveal">
+<h2>Building my path in the cloud.</h2>
 
-                <div class="stat">
-                    <strong>B.Sc</strong>
-                    <span>Computer Science</span>
-                </div>
+</div>
 
-                <div class="stat">
-                    <strong>AWS</strong>
-                    <span>Cloud Technologies</span>
-                </div>
 
-                <div class="stat">
-                    <strong>DevOps</strong>
-                    <span>Currently Learning</span>
-                </div>
+<div class="about-content reveal">
 
-                <div class="stat">
-                    <strong>Cloud</strong>
-                    <span>Career Focus</span>
-                </div>
+<p>
 
-            </div>
+I’m Jinusha J J, a passionate and motivated Computer Science
+graduate with a strong interest in Cloud Computing, AWS and
+DevOps. I enjoy learning how cloud technologies are used to
+build, deploy and manage reliable applications and infrastructure.
 
-            <div class="about-card reveal">
+</p>
 
-                <h3>Hello, I'm Jinusha.</h3>
+<div class="about-line"></div>
 
-                <p>
-                    I’m Jinusha J J, a passionate and motivated Computer Science
-                    graduate with a strong interest in Cloud Computing, AWS and
-                    DevOps. I enjoy learning how cloud technologies are used to
-                    build, deploy and manage reliable applications and
-                    infrastructure.
-                    <br><br>
-                    I have hands-on experience working with AWS services, Linux,
-                    Git, networking and cloud deployment concepts. I’m currently
-                    strengthening my practical skills in Cloud and DevOps and
-                    looking forward to starting my career as an AWS Cloud Engineer
-                    or Junior DevOps Engineer.
-                </p>
+<p>
 
-            </div>
+I have hands-on experience working with AWS services, Linux,
+Git, networking and cloud deployment concepts. I’m currently
+strengthening my practical skills in Cloud and DevOps and
+looking forward to starting my career as an AWS Cloud Engineer
+or Junior DevOps Engineer.
 
-        </div>
+</p>
 
-    </div>
+</div>
+
+</div>
 
 </section>
 
 
-<!-- EDUCATION -->
+
+<!-- ================= EDUCATION ================= -->
 
 <section id="education">
 
-    <div class="container">
+<div class="container">
 
-        <div class="section-heading reveal">
-            <small>02 / Education</small>
-            <h2>Academic journey.</h2>
-        </div>
+<div class="section-heading reveal">
 
-        <div class="timeline">
+<small>02 / Education</small>
 
-            <div class="timeline-item reveal">
+<h2>Academic journey.</h2>
 
-                <span>2023 — 2026</span>
+</div>
 
-                <h3>B.Sc. Computer Science</h3>
 
-                <p>
-                    St. Alphonsa College of Arts and Science
-                </p>
+<div class="timeline">
 
-            </div>
+<div class="timeline-item reveal">
 
-        </div>
+<span>2023 — 2026</span>
 
-    </div>
+<h3>B.Sc. Computer Science</h3>
+
+<p>
+St. Alphonsa College of Arts and Science
+</p>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- SKILLS -->
+
+<!-- ================= SKILLS ================= -->
 
 <section id="skills">
 
-    <div class="container">
+<div class="container">
 
-        <div class="section-heading reveal">
-            <small>03 / Technical Skills</small>
-            <h2>Tools I work with.</h2>
+<div class="section-heading reveal">
 
-            <p>
-                A growing technical toolkit focused on cloud infrastructure,
-                deployment, networking and DevOps.
-            </p>
-        </div>
+<small>03 / Technical Skills</small>
+
+<h2>Tools I work with.</h2>
+
+<p>
+A growing technical toolkit focused on cloud infrastructure,
+deployment, networking and DevOps.
+</p>
+
+</div>
 
 
-        <div class="skills-grid">
+<div class="skills-grid reveal">
 
-            <div class="skill reveal">
-                <div class="icon">☁️</div>
-                <p>AWS</p>
-            </div>
+<div class="skill">AWS</div>
+<div class="skill">Amazon EC2</div>
+<div class="skill">Amazon S3</div>
+<div class="skill">IAM</div>
+<div class="skill">VPC</div>
+<div class="skill">RDS</div>
+<div class="skill">CloudWatch</div>
+<div class="skill">CloudFront</div>
+<div class="skill">Route 53</div>
+<div class="skill">Load Balancer</div>
+<div class="skill">Auto Scaling</div>
+<div class="skill">Lambda</div>
+<div class="skill">DynamoDB</div>
+<div class="skill">SNS</div>
+<div class="skill">Linux</div>
+<div class="skill">Git</div>
+<div class="skill">GitHub</div>
+<div class="skill">Networking</div>
+<div class="skill">HTML</div>
+<div class="skill">CSS</div>
+<div class="skill">JavaScript</div>
+<div class="skill">DevOps</div>
 
-            <div class="skill reveal">
-                <div class="icon">▣</div>
-                <p>Amazon EC2</p>
-            </div>
+</div>
 
-            <div class="skill reveal">
-                <div class="icon">◈</div>
-                <p>Amazon S3</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">🔐</div>
-                <p>IAM</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">◉</div>
-                <p>VPC</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">◫</div>
-                <p>RDS</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">◌</div>
-                <p>CloudWatch</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">⌁</div>
-                <p>CloudFront</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">↗</div>
-                <p>Route 53</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">λ</div>
-                <p>Lambda</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">◒</div>
-                <p>DynamoDB</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">⌘</div>
-                <p>Git & GitHub</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">▤</div>
-                <p>Linux</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">⌬</div>
-                <p>Networking</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">◇</div>
-                <p>HTML & CSS</p>
-            </div>
-
-            <div class="skill reveal">
-                <div class="icon">JS</div>
-                <p>JavaScript</p>
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- PROJECTS -->
+
+<!-- ================= PROJECTS ================= -->
 
 <section id="projects">
 
-    <div class="container">
+<div class="container">
 
-        <div class="section-heading reveal">
+<div class="section-heading reveal">
 
-            <small>04 / Projects</small>
+<small>04 / Projects</small>
 
-            <h2>Hands-on experience.</h2>
+<h2>Hands-on experience.</h2>
 
-            <p>
-                Practical projects that helped me understand cloud infrastructure,
-                deployment and version control.
-            </p>
+<p>
+Practical projects that helped me understand cloud infrastructure,
+deployment and version control.
+</p>
 
-        </div>
-
-
-        <div class="projects-grid">
-
-            <div class="project reveal">
-
-                <div class="project-number">PROJECT 01</div>
-
-                <h3>AWS Cloud Infrastructure Deployment</h3>
-
-                <p>
-                    Designed and configured a cloud environment using AWS
-                    services including EC2, VPC, Security Groups, Load Balancer,
-                    Target Groups, Auto Scaling and CloudWatch.
-                </p>
-
-                <div class="tags">
-                    <span class="tag">AWS</span>
-                    <span class="tag">EC2</span>
-                    <span class="tag">VPC</span>
-                    <span class="tag">Load Balancer</span>
-                    <span class="tag">CloudWatch</span>
-                </div>
-
-            </div>
+</div>
 
 
-            <div class="project reveal">
-
-                <div class="project-number">PROJECT 02</div>
-
-                <h3>Static Website Deployment on AWS</h3>
-
-                <p>
-                    Deployed a static website using AWS services and configured
-                    the required cloud resources for reliable application access
-                    and delivery.
-                </p>
-
-                <div class="tags">
-                    <span class="tag">AWS</span>
-                    <span class="tag">S3</span>
-                    <span class="tag">CloudFront</span>
-                    <span class="tag">Route 53</span>
-                </div>
-
-            </div>
+<div class="projects">
 
 
-            <div class="project reveal">
+<div class="project reveal">
 
-                <div class="project-number">PROJECT 03</div>
+<div class="project-number">
+PROJECT 01
+</div>
 
-                <h3>Git & GitHub Project</h3>
+<h3>AWS Cloud Infrastructure Deployment</h3>
 
-                <p>
-                    Created repositories, managed branches, committed changes
-                    and pushed application code using Git and GitHub while
-                    following basic version-control practices.
-                </p>
+<p>
+Designed and configured a cloud environment using AWS services
+including EC2, VPC, Security Groups, Load Balancer, Target Groups,
+Auto Scaling and CloudWatch.
+</p>
 
-                <div class="tags">
-                    <span class="tag">Git</span>
-                    <span class="tag">GitHub</span>
-                    <span class="tag">Version Control</span>
-                </div>
+<div class="tags">
+<span class="tag">AWS</span>
+<span class="tag">EC2</span>
+<span class="tag">VPC</span>
+<span class="tag">Load Balancer</span>
+<span class="tag">CloudWatch</span>
+</div>
 
-            </div>
+</div>
 
 
-            <div class="project reveal">
 
-                <div class="project-number">PROJECT 04</div>
+<div class="project reveal">
 
-                <h3>Cloud Monitoring & Management</h3>
+<div class="project-number">
+PROJECT 02
+</div>
 
-                <p>
-                    Practiced monitoring cloud resources, configuring security
-                    rules and understanding alerts, availability and resource
-                    management using AWS cloud services.
-                </p>
+<h3>Static Website Deployment on AWS</h3>
 
-                <div class="tags">
-                    <span class="tag">CloudWatch</span>
-                    <span class="tag">EC2</span>
-                    <span class="tag">IAM</span>
-                    <span class="tag">Security</span>
-                </div>
+<p>
+Deployed a static website using AWS services and configured
+the required cloud resources for reliable application access
+and delivery.
+</p>
 
-            </div>
+<div class="tags">
+<span class="tag">AWS</span>
+<span class="tag">S3</span>
+<span class="tag">CloudFront</span>
+<span class="tag">Route 53</span>
+</div>
 
-        </div>
+</div>
 
-    </div>
+
+
+<div class="project reveal">
+
+<div class="project-number">
+PROJECT 03
+</div>
+
+<h3>Git & GitHub Project</h3>
+
+<p>
+Created repositories, managed branches, committed changes
+and pushed application code using Git and GitHub while
+following basic version-control practices.
+</p>
+
+<div class="tags">
+<span class="tag">Git</span>
+<span class="tag">GitHub</span>
+<span class="tag">Version Control</span>
+</div>
+
+</div>
+
+
+
+<div class="project reveal">
+
+<div class="project-number">
+PROJECT 04
+</div>
+
+<h3>Cloud Monitoring & Management</h3>
+
+<p>
+Practiced monitoring cloud resources, configuring security
+rules and understanding alerts, availability and resource
+management using AWS cloud services.
+</p>
+
+<div class="tags">
+<span class="tag">CloudWatch</span>
+<span class="tag">EC2</span>
+<span class="tag">IAM</span>
+<span class="tag">Security</span>
+</div>
+
+</div>
+
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- CURRENTLY LEARNING -->
+
+<!-- ================= CURRENTLY LEARNING ================= -->
 
 <section>
 
-    <div class="container">
+<div class="container">
 
-        <div class="learning-box reveal">
+<div class="section-heading reveal">
 
-            <div class="section-heading" style="margin-bottom:0;">
+<small>05 / Currently Learning</small>
 
-                <small>05 / Currently Learning</small>
+<h2>Always learning. Always building.</h2>
 
-                <h2>Always learning. Always building.</h2>
+<p>
+Currently developing practical knowledge in cloud computing
+and DevOps to prepare for a professional career in the IT industry.
+</p>
 
-                <p>
-                    Currently developing practical knowledge in cloud computing
-                    and DevOps to prepare for a professional career in the IT
-                    industry.
-                </p>
-
-            </div>
+</div>
 
 
-            <div class="learning-list">
+<div class="learning-list reveal">
 
-                <div class="learning-item">AWS Cloud</div>
-                <div class="learning-item">DevOps</div>
-                <div class="learning-item">Linux</div>
-                <div class="learning-item">Git & GitHub</div>
-                <div class="learning-item">CI/CD</div>
-                <div class="learning-item">Cloud Infrastructure</div>
-                <div class="learning-item">Networking</div>
-                <div class="learning-item">Deployment</div>
+<div class="learning-item">AWS Cloud</div>
+<div class="learning-item">DevOps</div>
+<div class="learning-item">Linux</div>
+<div class="learning-item">Git & GitHub</div>
+<div class="learning-item">CI/CD</div>
+<div class="learning-item">Cloud Infrastructure</div>
+<div class="learning-item">Networking</div>
+<div class="learning-item">Deployment</div>
 
-            </div>
+</div>
 
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- CAREER -->
+
+<!-- ================= CAREER ================= -->
 
 <section>
 
-    <div class="container">
+<div class="container">
 
-        <div class="section-heading reveal">
+<div class="section-heading reveal">
 
-            <small>06 / Career Goal</small>
+<small>06 / Career Goal</small>
 
-            <h2>Where I'm heading.</h2>
+<h2>Where I'm heading.</h2>
 
-        </div>
+</div>
 
-        <div class="about-card reveal">
 
-            <p>
-                My goal is to begin my career as an AWS Cloud Engineer or Junior
-                DevOps Engineer and continuously develop my skills in cloud
-                infrastructure, automation, deployment and DevOps practices.
-                I’m interested in working on real-world cloud environments and
-                growing through hands-on experience.
-            </p>
+<p class="career-text reveal">
 
-        </div>
+My goal is to begin my career as an AWS Cloud Engineer or Junior
+DevOps Engineer and continuously develop my skills in cloud
+infrastructure, automation, deployment and DevOps practices.
+I’m interested in working on real-world cloud environments
+and growing through hands-on experience.
 
-    </div>
+</p>
+
+</div>
 
 </section>
 
 
-<!-- CONTACT -->
+
+<!-- ================= CONTACT ================= -->
 
 <section id="contact">
 
-    <div class="container">
+<div class="container contact reveal">
 
-        <div class="contact-box reveal">
+<h2>Let's connect.</h2>
 
-            <h2>Let's connect.</h2>
+<p>
+I'm open to opportunities, collaborations and conversations
+around Cloud, AWS and DevOps.
+</p>
 
-            <p>
-                I'm open to opportunities, collaborations and conversations
-                around Cloud, AWS and DevOps.
-            </p>
 
-            <div class="contact-links">
+<div class="contact-links">
 
-                <a
-                    href="mailto:jinusha1923@gmail.com"
-                    class="btn btn-primary"
-                >
-                    Email Me
-                </a>
+<a
+href="mailto:jinusha1923@gmail.com"
+class="btn btn-primary">
+Email Me
+</a>
 
-                <a
-                    href="https://github.com/jinusha-jj"
-                    target="_blank"
-                    class="btn btn-outline"
-                >
-                    GitHub
-                </a>
+<a
+href="https://github.com/jinusha-jj"
+target="_blank"
+class="btn btn-outline">
+GitHub
+</a>
 
-                <a
-                    href="https://www.linkedin.com/in/jinusha-238w"
-                    target="_blank"
-                    class="btn btn-outline"
-                >
-                    LinkedIn
-                </a>
+<a
+href="https://www.linkedin.com/in/jinusha-238w"
+target="_blank"
+class="btn btn-outline">
+LinkedIn
+</a>
 
-            </div>
+</div>
 
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- FOOTER -->
 
 <footer>
 
-    <div class="container">
-
-        © 2026 <span>Jinusha J J</span> · AWS Cloud Engineer Portfolio
-
-    </div>
+© 2026 Jinusha J J · AWS Cloud Engineer Portfolio
 
 </footer>
 
 
+
 <script>
 
-    /* SCROLL REVEAL */
+const reveals=document.querySelectorAll(".reveal");
 
-    const reveals = document.querySelectorAll(".reveal");
+const observer=new IntersectionObserver(
+(entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("active");
+}
+});
+},
+{threshold:.12}
+);
 
-    const revealObserver = new IntersectionObserver(
-        (entries) => {
-
-            entries.forEach((entry) => {
-
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("active");
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.12
-        }
-    );
-
-    reveals.forEach((element) => {
-        revealObserver.observe(element);
-    });
+reveals.forEach(el=>observer.observe(el));
 
 
-    /* SUBTLE MOUSE GLOW */
+/* mouse-following violet glow */
 
-    document.addEventListener("mousemove", (event) => {
+document.addEventListener("mousemove",(e)=>{
 
-        const x = event.clientX;
-        const y = event.clientY;
+document.body.style.background=`
+radial-gradient(
+450px circle at ${e.clientX}px ${e.clientY}px,
+rgba(155,92,255,.045),
+transparent 55%
+),
+radial-gradient(
+circle at 75% 18%,
+rgba(130,55,230,.13),
+transparent 28%
+),
+#050506
+`;
 
-        document.body.style.background = `
-            radial-gradient(
-                500px circle at ${x}px ${y}px,
-                rgba(155,92,255,.055),
-                transparent 45%
-            ),
-            radial-gradient(
-                circle at 80% 15%,
-                rgba(125,55,220,.13),
-                transparent 28%
-            ),
-            #050507
-        `;
-
-    });
+});
 
 </script>
 
